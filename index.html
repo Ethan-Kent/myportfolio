@@ -1,1 +1,661 @@
-welcome to my portfolio
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>PORTFOLIO | MA ZHICHENG</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0b0b0d;
+            --glass: rgba(255,255,255,0.06);
+            --glass-strong: rgba(255,255,255,0.08);
+            --border: rgba(255,255,255,0.12);
+            --text: #f0f0f0;
+            --text-muted: #a0a0a0;
+            --accent: #ff3333;
+            --blur: 16px;
+            --shadow: 0 8px 30px rgba(0,0,0,0.25);
+            --uppercase-font-size: 12px;
+            --uppercase-letter-spacing: 1px;
+            --uppercase-font-weight: 600;
+            --navbar-height: 72px;
+            --radius: 12px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: var(--navbar-height);
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        #profile, #institutional, #events, #portfolio {
+            scroll-margin-top: calc(var(--navbar-height));
+        }
+
+        .bg-animated {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at center, #2a0000 0%, #100000 15%, #0b0b0d 80%, #0b0b0d 100%);
+            background-size: 230% 230%;
+            animation: bgFlow 30s ease infinite;
+            z-index: -2;
+        }
+
+        @keyframes bgFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .glow-top {
+            position: fixed;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 700px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,50,50,0.2) 0%, transparent 60%);
+            opacity: 0.5;
+            z-index: -1;
+        }
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,50,50,0.3);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            z-index: 999;
+            padding: 18px 0;
+            height: var(--navbar-height);
+            box-sizing: border-box;
+        }
+        .nav-container {
+            width: min(1200px, calc(100% - 32px));
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+        .nav-logo {
+            font-weight: var(--uppercase-font-weight);
+            letter-spacing: var(--uppercase-letter-spacing);
+            text-transform: uppercase;
+            font-size: var(--uppercase-font-size);
+        }
+        .nav-logo span {
+            color: var(--accent);
+        }
+        .nav-links {
+            display: flex;
+            gap: 28px;
+        }
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: var(--uppercase-font-size);
+            font-weight: var(--uppercase-font-weight);
+            text-transform: uppercase;
+            transition: color 0.3s;
+            letter-spacing: var(--uppercase-letter-spacing);
+        }
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .container {
+            width: min(1200px, calc(100% - 32px));
+            margin: 40px auto;
+        }
+
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(var(--blur));
+            -webkit-backdrop-filter: blur(var(--blur));
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            box-shadow: var(--shadow);
+            margin-bottom: 32px;
+        }
+
+        .profile {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .avatar {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--border);
+            background: #111;
+        }
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .info h1 {
+            font-size: 24px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: var(--uppercase-letter-spacing);
+            font-weight: var(--uppercase-font-weight);
+        }
+        .info h1 span {
+            color: var(--accent);
+        }
+        .info .tag {
+            color: var(--accent);
+            font-weight: var(--uppercase-font-weight);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            font-size: var(--uppercase-font-size);
+            letter-spacing: var(--uppercase-letter-spacing);
+        }
+        .info p {
+            color: var(--text-muted);
+            max-width: 600px;
+            line-height: 1.7;
+        }
+
+        .contacts {
+            margin-top: 16px;
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .contacts a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: var(--uppercase-font-size);
+            text-transform: uppercase;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            transition: all .3s;
+            letter-spacing: var(--uppercase-letter-spacing);
+        }
+        .contacts a:hover {
+            background: var(--glass-strong);
+            color: var(--accent);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: var(--uppercase-font-weight);
+            margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: var(--uppercase-letter-spacing);
+        }
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th {
+            text-align: left;
+            padding: 12px 16px;
+            font-size: var(--uppercase-font-size);
+            text-transform: uppercase;
+            letter-spacing: var(--uppercase-letter-spacing);
+            color: var(--accent);
+            font-weight: var(--uppercase-font-weight);
+        }
+        td {
+            padding: 14px 16px;
+            border-top: 1px solid var(--border);
+            font-size: 14px;
+        }
+        tr:hover td {
+            background: var(--glass);
+        }
+
+        .category {
+            margin-bottom: 40px;
+        }
+        .category h3 {
+            font-size: var(--uppercase-font-size);
+            margin-bottom: 16px;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: var(--uppercase-letter-spacing);
+            font-weight: var(--uppercase-font-weight);
+        }
+
+        .carousel-container {
+            width: 100%;
+            overflow: hidden;
+            border-radius: 0;
+            background: transparent;
+            border: none;
+            position: relative;
+        }
+        .carousel-track {
+            display: flex;
+            gap: 1rem;
+            width: max-content;
+            padding: 1rem;
+            position: relative;
+        }
+        .portfolio-card {
+            width: 220px;
+            height: 220px;
+            flex-shrink: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #111;
+            border: 1px solid var(--border);
+            transition: transform .3s, box-shadow .3s;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+        }
+        .portfolio-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        .portfolio-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            pointer-events: none;
+        }
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 2rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+        .modal-content {
+            max-width: 80%;
+            max-height: 80vh;
+            text-align: center;
+            background: var(--glass);
+            padding: 16px;
+            border-radius: 0;
+            border: 1px solid var(--border);
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+        .modal-img {
+            max-width: 100%;
+            max-height: 70vh;
+            min-height: 300px;
+            border-radius: 0;
+            border: 1px solid var(--border);
+            margin-bottom: 1rem;
+            object-fit: cover;
+            aspect-ratio: 16/9;
+        }
+        .modal-title {
+            font-size: 14px;
+            font-weight: var(--uppercase-font-weight);
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: var(--uppercase-letter-spacing);
+        }
+        .modal-subtitle {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: var(--uppercase-letter-spacing);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            font-size: var(--uppercase-font-size);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: var(--uppercase-letter-spacing);
+        }
+
+        @media (max-width: 768px) {
+            .profile { flex-direction: column; text-align: center; }
+            .contacts { justify-content: center; }
+            .portfolio-card { width: 160px; height: 160px; }
+            .modal-content { max-width: 95%; }
+            .modal-img { 
+                max-height: 60vh;
+                min-height: 200px;
+                aspect-ratio: 4/3;
+            }
+            :root {
+                --navbar-height: 68px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-animated"></div>
+    <div class="glow-top"></div>
+
+    <div class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo"><span>PORTFOLIO</span> | MA ZHICHENG </div>
+            <div class="nav-links">
+                <a href="#profile">ABOUT</a>
+                <a href="#institutional">INSTITUTIONAL</a>
+                <a href="#events">EVENTS</a>
+                <a href="#portfolio">PORTFOLIO</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <section id="profile" class="glass-card profile">
+            <div class="avatar">
+                <img src="https://i.imgur.com/c1zYCUv.png" alt="Avatar">
+            </div>
+            <div class="info">
+                <h1>MA ZHICHENG</h1>
+                <div class="tag">Graphic Designer / Visual Artist</div>
+                <p>Focused on brand visuals and graphic design, skilled in logo and vector illustration, with a preference for corporate and flat aesthetics.</p>
+                <div class="contacts">
+                    <a href="mailto:ethankent2007@163.com"><i class="fas fa-envelope"></i> Email</a>
+                    <a href="https://wa.me/601151219855"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                    <a href="https://www.instagram.com/kennntkent"><i class="fab fa-instagram"></i> Instagram</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="institutional" class="glass-card">
+            <h2 class="section-title">Institutional Involvement</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr><th>Tenure</th><th>Institution</th><th>Capacity</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Apr 2026–Present</td><td>Malaysia Shandong General Chamber of Commerce</td><td>Student Member</td></tr>
+                        <tr><td>Apr 2026–Present</td><td>UTP Association of International Students (AIS)</td><td>Country Representative (China)</td></tr>
+                        <tr><td>Mar 2026–Present</td><td>UTP Chinese Culture Club (CCC) Webmaster Division</td><td>Committee</td></tr>
+                        <tr><td>Feb 2026–Present</td><td>UTP Media & Technology Club (MEDTECH) Creative & Multimedia Department (CMD)</td><td>Design Team New Recruit</td></tr>
+                        <tr><td>Jan 2026–Present</td><td>UTP Society of Petroleum Engineers Student Chapter (UTP-SPE-SC) Design, Technical & Media Department (DTM)</td><td>Committee</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="events" class="glass-card">
+            <h2 class="section-title">Event Experience</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr><th>Date</th><th>Event</th><th>Department</th><th>Position</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>5/6/2026</td><td>UTP Megasports 2026</td><td>Design, Technical & Media Department (DTM)</td><td>Committee</td></tr>
+                        <tr><td>4/5/2026</td><td>UTP Orientation Week May 2026</td><td>Media & Production Department (MnP)</td><td>Design Team AHOD</td></tr>
+                        <tr><td>3/4/2026</td><td>Recruitment Drive Medtech May 2026</td><td>Poster & Promotion Department (PnP)</td><td>Committee</td></tr>
+                        <tr><td>11/3/2026</td><td>SPE People Project</td><td>Design, Technical & Media Department (DTM)</td><td>Committee</td></tr>
+                        <tr><td>11/2/2026</td><td>UTP Chinese New Year 2026: Horsepower</td><td>Media Department</td><td>Committee</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="portfolio" class="glass-card">
+            <h2 class="section-title">Portfolio</h2>
+
+            <div class="category">
+                <h3>DESIGN</h3>
+                <div class="carousel-container" id="designCarousel">
+                    <div class="carousel-track" id="designTrack">
+                        <div class="portfolio-card" 
+                             data-src="https://i.imgur.com/xd2MdUx.png"
+                             data-title="UTP May 2026 Orientation Week"
+                             data-subtitle="Logo">
+                            <img src="https://i.imgur.com/xd2MdUx.png">
+                        </div>
+                        <div class="portfolio-card" 
+                             data-src="https://i.imgur.com/6w7Xrxz.jpeg"
+                             data-title="UTP May 2026 Orientation Week"
+                             data-subtitle="Nametag & Lanyard">
+                            <img src="https://i.imgur.com/IaMb5pc.jpeg">
+                        </div>
+                        <div class="portfolio-card" 
+                             data-src="https://i.imgur.com/y0aVsJI.jpeg"
+                             data-title="UTP Chinese New Year 2026: Horsepower"
+                             data-subtitle="Committee T-shirt">
+                            <img src="https://i.imgur.com/6DK33WI.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category">
+                <h3>PHOTO</h3>
+                <div class="carousel-container" id="photoCarousel">
+                    <div class="carousel-track" id="photoTrack">
+                        <div class="portfolio-card" 
+                             data-src="https://i.imgur.com/Hh7VPJk.jpeg"
+                             data-title="UTP May 2026 Orientation Week"
+                             data-subtitle="PnE Session">
+                            <img src="https://i.imgur.com/Hh7VPJk.jpeg">
+                        </div>
+                        <div class="portfolio-card" 
+                             data-src="https://i.imgur.com/BfbEyir.jpeg"
+                             data-title="UTP May 2026 Orientation Week"
+                             data-subtitle="PnE Session">
+                            <img src="https://i.imgur.com/BfbEyir.jpeg">
+                        </div>
+                        <div class="portfolio-card" 
+                             data-src="https://i.imgur.com/MUacblc.jpeg"
+                             data-title="UTP May 2026 Orientation Week"
+                             data-subtitle="PnE Session">
+                            <img src="https://i.imgur.com/MUacblc.jpeg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category">
+                <h3>VIDEO</h3>
+                <div class="carousel-container" id="videoCarousel">
+                    <div class="carousel-track" id="videoTrack">
+                        <div class="portfolio-card" 
+                             data-src="https://picsum.photos/id/237/600/600"
+                             data-title="MOTION GRAPHICS"
+                             data-subtitle="Dynamic Visuals">
+                            <img src="https://picsum.photos/id/237/400/400">
+                        </div>
+                        <div class="portfolio-card" 
+                             data-src="https://picsum.photos/id/24/600/600"
+                             data-title="COMMERCIAL"
+                             data-subtitle="Brand Storytelling">
+                            <img src="https://picsum.photos/id/24/400/400">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>COPYRIGHT © 2025–2026 MA ZHICHENG. All rights reserved.</footer>
+
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <img class="modal-img" id="modalImg" src="" alt="">
+            <div class="modal-title" id="modalTitle"></div>
+            <div class="modal-subtitle" id="modalSubtitle"></div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', e => {
+                const href = link.getAttribute('href');
+                if (href.length <= 1) return;
+                const target = document.querySelector(href);
+                if (!target) return;
+
+                e.preventDefault();
+                const navHeight = document.querySelector('.navbar').offsetHeight;
+                let offsetTop = target.offsetTop - navHeight - 20;
+
+                if (href === '#profile') {
+                    offsetTop -= 20;
+                }
+
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
+                history.pushState(null, null, href);
+            });
+        });
+
+        const modal = document.getElementById('modal');
+        const modalImg = document.getElementById('modalImg');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalSubtitle = document.getElementById('modalSubtitle');
+
+        const preloadImages = [];
+        document.querySelectorAll('.portfolio-card').forEach(card => {
+            const img = new Image();
+            img.src = card.dataset.src;
+            preloadImages.push(img);
+
+            card.addEventListener('click', (e) => {
+                e.stopPropagation();
+                modalImg.src = card.dataset.src;
+                modalTitle.textContent = card.dataset.title;
+                modalSubtitle.textContent = card.dataset.subtitle;
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        modal.addEventListener('click', e => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                setTimeout(() => {
+                    document.body.style.overflow = 'auto';
+                }, 300);
+            }
+        });
+
+        document.querySelector('.modal-content').addEventListener('click', e => {
+            e.stopPropagation();
+        });
+
+        function createSeamlessCarousel(trackId, stagger = 0) {
+            const track = document.getElementById(trackId);
+            if (!track) return;
+            
+            const originalCards = Array.from(track.children);
+            const cardCount = originalCards.length;
+            if (cardCount === 0) return;
+
+            const clones = originalCards.map(el => {
+                const clone = el.cloneNode(true);
+                clone.dataset.src = el.dataset.src;
+                clone.dataset.title = el.dataset.title;
+                clone.dataset.subtitle = el.dataset.subtitle;
+                clone.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    modalImg.src = clone.dataset.src;
+                    modalTitle.textContent = clone.dataset.title;
+                    modalSubtitle.textContent = clone.dataset.subtitle;
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+                return clone;
+            });
+            
+            clones.forEach(el => track.appendChild(el));
+
+            const cardWidth = originalCards[0].offsetWidth + 16;
+            let pos = stagger * cardWidth / 2;
+            const speed = 1.2;
+
+            track.style.transform = `translateX(-${pos}px)`;
+            track.style.transition = 'transform 0s';
+
+            function animate() {
+                pos += speed;
+                
+                if (pos >= cardWidth * cardCount) {
+                    track.style.transform = `translateX(-${pos}px)`;
+                    void track.offsetWidth;
+                } else {
+                    track.style.transform = `translateX(-${pos}px)`;
+                }
+                
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+
+            window.addEventListener('resize', () => {
+                const newCardWidth = originalCards[0].offsetWidth + 16;
+                pos = (pos / cardWidth) * newCardWidth;
+                cardWidth = newCardWidth;
+            });
+        }
+
+        createSeamlessCarousel('designTrack', 0);
+        createSeamlessCarousel('photoTrack', 1);
+        createSeamlessCarousel('videoTrack', 2);
+    </script>
+</body>
+</html>
