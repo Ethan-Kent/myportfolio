@@ -294,11 +294,27 @@
             transform: translateY(-6px);
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
         }
-        .portfolio-card img {
+        .portfolio-card img,
+        .portfolio-card video {
             width: 100%;
             height: 100%;
             object-fit: cover;
             pointer-events: none;
+        }
+
+        /* 视频卡片样式 */
+        .video-card::before {
+            content: '\f03d';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 40px;
+            color: rgba(255,255,255,0.8);
+            text-shadow: 0 0 10px rgba(0,0,0,0.5);
+            z-index: 2;
         }
 
         .modal {
@@ -333,7 +349,7 @@
         .modal.active .modal-content {
             transform: scale(1);
         }
-        .modal-img {
+        .modal-media {
             max-width: 100%;
             max-height: 70vh;
             min-height: 300px;
@@ -372,7 +388,7 @@
             .contacts { justify-content: center; }
             .portfolio-card { width: 160px; height: 160px; }
             .modal-content { max-width: 95%; }
-            .modal-img { 
+            .modal-media { 
                 max-height: 60vh;
                 min-height: 200px;
                 aspect-ratio: 4/3;
@@ -403,7 +419,7 @@
     <div class="container">
         <section id="profile" class="glass-card profile">
             <div class="avatar">
-                <img src="https://i.imgur.com/c1zYCUv.png" alt="Avatar">
+                <img src="/img/avatar.webp" alt="Avatar">
             </div>
             <div class="info">
                 <h1>MA ZHICHENG</h1>
@@ -420,17 +436,11 @@
         <section id="institutional" class="glass-card">
             <h2 class="section-title">Institutional Involvement</h2>
             <div class="table-wrap">
-                <table>
+                <table id="institutionalTable">
                     <thead>
                         <tr><th>Tenure</th><th>Institution</th><th>Capacity</th></tr>
                     </thead>
-                    <tbody>
-                        <tr><td>Apr 2026–Present</td><td>Malaysia Shandong General Chamber of Commerce</td><td>Student Member</td></tr>
-                        <tr><td>Apr 2026–Present</td><td>UTP Association of International Students (AIS)</td><td>Country Representative (China)</td></tr>
-                        <tr><td>Mar 2026–Present</td><td>UTP Chinese Culture Club (CCC) Webmaster Division</td><td>Committee</td></tr>
-                        <tr><td>Feb 2026–Present</td><td>UTP Media & Technology Club (MEDTECH) Creative & Multimedia Department (CMD)</td><td>Design Team New Recruit</td></tr>
-                        <tr><td>Jan 2026–Present</td><td>UTP Society of Petroleum Engineers Student Chapter (UTP-SPE-SC) Design, Technical & Media Department (DTM)</td><td>Committee</td></tr>
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
         </section>
@@ -438,17 +448,11 @@
         <section id="events" class="glass-card">
             <h2 class="section-title">Event Experience</h2>
             <div class="table-wrap">
-                <table>
+                <table id="eventsTable">
                     <thead>
                         <tr><th>Date</th><th>Event</th><th>Department</th><th>Position</th></tr>
                     </thead>
-                    <tbody>
-                        <tr><td>5/6/2026</td><td>UTP Megasports 2026</td><td>Design, Technical & Media Department (DTM)</td><td>Committee</td></tr>
-                        <tr><td>4/5/2026</td><td>UTP Orientation Week May 2026</td><td>Media & Production Department (MnP)</td><td>Design Team AHOD</td></tr>
-                        <tr><td>3/4/2026</td><td>Recruitment Drive Medtech May 2026</td><td>Poster & Promotion Department (PnP)</td><td>Committee</td></tr>
-                        <tr><td>11/3/2026</td><td>SPE People Project</td><td>Design, Technical & Media Department (DTM)</td><td>Committee</td></tr>
-                        <tr><td>11/2/2026</td><td>UTP Chinese New Year 2026: Horsepower</td><td>Media Department</td><td>Committee</td></tr>
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
         </section>
@@ -459,72 +463,21 @@
             <div class="category">
                 <h3>DESIGN</h3>
                 <div class="carousel-container" id="designCarousel">
-                    <div class="carousel-track" id="designTrack">
-                        <div class="portfolio-card" 
-                             data-src="https://i.imgur.com/xd2MdUx.png"
-                             data-title="UTP May 2026 Orientation Week"
-                             data-subtitle="Logo">
-                            <img src="https://i.imgur.com/xd2MdUx.png">
-                        </div>
-                        <div class="portfolio-card" 
-                             data-src="https://i.imgur.com/6w7Xrxz.jpeg"
-                             data-title="UTP May 2026 Orientation Week"
-                             data-subtitle="Nametag & Lanyard">
-                            <img src="https://i.imgur.com/IaMb5pc.jpeg">
-                        </div>
-                        <div class="portfolio-card" 
-                             data-src="https://i.imgur.com/y0aVsJI.jpeg"
-                             data-title="UTP Chinese New Year 2026: Horsepower"
-                             data-subtitle="Committee T-shirt">
-                            <img src="https://i.imgur.com/6DK33WI.png">
-                        </div>
-                    </div>
+                    <div class="carousel-track" id="designTrack"></div>
                 </div>
             </div>
 
             <div class="category">
                 <h3>PHOTO</h3>
                 <div class="carousel-container" id="photoCarousel">
-                    <div class="carousel-track" id="photoTrack">
-                        <div class="portfolio-card" 
-                             data-src="https://i.imgur.com/Hh7VPJk.jpeg"
-                             data-title="UTP May 2026 Orientation Week"
-                             data-subtitle="PnE Session">
-                            <img src="https://i.imgur.com/Hh7VPJk.jpeg">
-                        </div>
-                        <div class="portfolio-card" 
-                             data-src="https://i.imgur.com/BfbEyir.jpeg"
-                             data-title="UTP May 2026 Orientation Week"
-                             data-subtitle="PnE Session">
-                            <img src="https://i.imgur.com/BfbEyir.jpeg">
-                        </div>
-                        <div class="portfolio-card" 
-                             data-src="https://i.imgur.com/MUacblc.jpeg"
-                             data-title="UTP May 2026 Orientation Week"
-                             data-subtitle="PnE Session">
-                            <img src="https://i.imgur.com/MUacblc.jpeg">
-                        </div>
-                    </div>
+                    <div class="carousel-track" id="photoTrack"></div>
                 </div>
             </div>
 
             <div class="category">
                 <h3>VIDEO</h3>
                 <div class="carousel-container" id="videoCarousel">
-                    <div class="carousel-track" id="videoTrack">
-                        <div class="portfolio-card" 
-                             data-src="https://picsum.photos/id/237/600/600"
-                             data-title="MOTION GRAPHICS"
-                             data-subtitle="Dynamic Visuals">
-                            <img src="https://picsum.photos/id/237/400/400">
-                        </div>
-                        <div class="portfolio-card" 
-                             data-src="https://picsum.photos/id/24/600/600"
-                             data-title="COMMERCIAL"
-                             data-subtitle="Brand Storytelling">
-                            <img src="https://picsum.photos/id/24/400/400">
-                        </div>
-                    </div>
+                    <div class="carousel-track" id="videoTrack"></div>
                 </div>
             </div>
         </section>
@@ -534,13 +487,14 @@
 
     <div class="modal" id="modal">
         <div class="modal-content">
-            <img class="modal-img" id="modalImg" src="" alt="">
+            <div id="modalMediaContainer"></div>
             <div class="modal-title" id="modalTitle"></div>
             <div class="modal-subtitle" id="modalSubtitle"></div>
         </div>
     </div>
 
     <script>
+        // 导航点击事件
         document.querySelectorAll('a[href^="#"]').forEach(link => {
             link.addEventListener('click', e => {
                 const href = link.getAttribute('href');
@@ -564,32 +518,20 @@
             });
         });
 
+        // 模态框相关
         const modal = document.getElementById('modal');
-        const modalImg = document.getElementById('modalImg');
+        const modalMediaContainer = document.getElementById('modalMediaContainer');
         const modalTitle = document.getElementById('modalTitle');
         const modalSubtitle = document.getElementById('modalSubtitle');
 
-        const preloadImages = [];
-        document.querySelectorAll('.portfolio-card').forEach(card => {
-            const img = new Image();
-            img.src = card.dataset.src;
-            preloadImages.push(img);
-
-            card.addEventListener('click', (e) => {
-                e.stopPropagation();
-                modalImg.src = card.dataset.src;
-                modalTitle.textContent = card.dataset.title;
-                modalSubtitle.textContent = card.dataset.subtitle;
-                modal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            });
-        });
-
+        // 关闭模态框
         modal.addEventListener('click', e => {
             if (e.target === modal) {
                 modal.classList.remove('active');
                 setTimeout(() => {
                     document.body.style.overflow = 'auto';
+                    // 清空媒体容器，避免视频继续播放
+                    modalMediaContainer.innerHTML = '';
                 }, 300);
             }
         });
@@ -598,6 +540,124 @@
             e.stopPropagation();
         });
 
+        // 加载表格数据
+        async function loadTableData() {
+            try {
+                // 加载机构经历
+                const institutionalRes = await fetch('data/institutional.json');
+                const institutionalData = await institutionalRes.json();
+                const institutionalTbody = document.querySelector('#institutionalTable tbody');
+                institutionalData.forEach(item => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${item.tenure}</td>
+                        <td>${item.institution}</td>
+                        <td>${item.capacity}</td>
+                    `;
+                    institutionalTbody.appendChild(tr);
+                });
+
+                // 加载活动经历
+                const eventsRes = await fetch('data/events.json');
+                const eventsData = await eventsRes.json();
+                const eventsTbody = document.querySelector('#eventsTable tbody');
+                eventsData.forEach(item => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${item.date}</td>
+                        <td>${item.event}</td>
+                        <td>${item.department}</td>
+                        <td>${item.position}</td>
+                    `;
+                    eventsTbody.appendChild(tr);
+                });
+            } catch (error) {
+                console.error('加载表格数据失败:', error);
+            }
+        }
+
+        // 加载作品集数据
+        async function loadPortfolioData() {
+            try {
+                const res = await fetch('data/portfolio.json');
+                const portfolioData = await res.json();
+                
+                // 渲染设计作品集
+                renderPortfolioCategory('designTrack', portfolioData.design, 'image');
+                // 渲染摄影作品集
+                renderPortfolioCategory('photoTrack', portfolioData.photo, 'image');
+                // 渲染视频作品集
+                renderPortfolioCategory('videoTrack', portfolioData.video, 'video');
+
+                // 初始化轮播
+                createSeamlessCarousel('designTrack', 0);
+                createSeamlessCarousel('photoTrack', 1);
+                createSeamlessCarousel('videoTrack', 2);
+
+            } catch (error) {
+                console.error('加载作品集数据失败:', error);
+            }
+        }
+
+        // 渲染作品集分类
+        function renderPortfolioCategory(trackId, items, type) {
+            const track = document.getElementById(trackId);
+            if (!track || !items) return;
+
+            items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = `portfolio-card ${type === 'video' ? 'video-card' : ''}`;
+                card.dataset.src = item.src;
+                card.dataset.title = item.title;
+                card.dataset.subtitle = item.subtitle;
+                card.dataset.type = type;
+
+                // 根据类型添加内容
+                if (type === 'image') {
+                    card.innerHTML = `<img src="${item.cover}" alt="${item.title}">`;
+                } else if (type === 'video') {
+                    card.innerHTML = `<img src="${item.cover}" alt="${item.title}">`;
+                }
+
+                // 卡片点击事件
+                card.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    openModal(item);
+                });
+
+                track.appendChild(card);
+            });
+        }
+
+        // 打开模态框
+        function openModal(item) {
+            modalTitle.textContent = item.title;
+            modalSubtitle.textContent = item.subtitle;
+            modalMediaContainer.innerHTML = '';
+
+            if (item.src.endsWith('.mp4')) {
+                // 视频
+                const video = document.createElement('video');
+                video.className = 'modal-media';
+                video.src = item.src;
+                video.controls = true;
+                video.autoplay = true;
+                video.playsInline = true;
+                modalMediaContainer.appendChild(video);
+            } else {
+                // 图片
+                const img = document.createElement('img');
+                img.className = 'modal-media';
+                img.src = item.src;
+                img.alt = item.title;
+                modalMediaContainer.appendChild(img);
+            }
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // 无缝轮播函数
         function createSeamlessCarousel(trackId, stagger = 0) {
             const track = document.getElementById(trackId);
             if (!track) return;
@@ -606,25 +666,24 @@
             const cardCount = originalCards.length;
             if (cardCount === 0) return;
 
+            // 克隆卡片
             const clones = originalCards.map(el => {
                 const clone = el.cloneNode(true);
-                clone.dataset.src = el.dataset.src;
-                clone.dataset.title = el.dataset.title;
-                clone.dataset.subtitle = el.dataset.subtitle;
+                clone.dataset = el.dataset;
                 clone.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    modalImg.src = clone.dataset.src;
-                    modalTitle.textContent = clone.dataset.title;
-                    modalSubtitle.textContent = clone.dataset.subtitle;
-                    modal.classList.add('active');
-                    document.body.style.overflow = 'hidden';
+                    openModal({
+                        src: clone.dataset.src,
+                        title: clone.dataset.title,
+                        subtitle: clone.dataset.subtitle
+                    });
                 });
                 return clone;
             });
             
             clones.forEach(el => track.appendChild(el));
 
-            const cardWidth = originalCards[0].offsetWidth + 16;
+            let cardWidth = originalCards[0].offsetWidth + 16;
             let pos = stagger * cardWidth / 2;
             const speed = 1.2;
 
@@ -635,17 +694,16 @@
                 pos += speed;
                 
                 if (pos >= cardWidth * cardCount) {
-                    track.style.transform = `translateX(-${pos}px)`;
-                    void track.offsetWidth;
-                } else {
-                    track.style.transform = `translateX(-${pos}px)`;
+                    pos = 0; // 重置位置
                 }
+                track.style.transform = `translateX(-${pos}px)`;
                 
                 requestAnimationFrame(animate);
             }
 
             animate();
 
+            // 窗口大小变化时更新卡片宽度
             window.addEventListener('resize', () => {
                 const newCardWidth = originalCards[0].offsetWidth + 16;
                 pos = (pos / cardWidth) * newCardWidth;
@@ -653,9 +711,11 @@
             });
         }
 
-        createSeamlessCarousel('designTrack', 0);
-        createSeamlessCarousel('photoTrack', 1);
-        createSeamlessCarousel('videoTrack', 2);
+        // 初始化
+        window.addEventListener('DOMContentLoaded', async () => {
+            await loadTableData();
+            await loadPortfolioData();
+        });
     </script>
 </body>
 </html>
