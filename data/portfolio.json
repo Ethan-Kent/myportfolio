@@ -35,25 +35,52 @@
     
     {
       "src": "img/p/01.webp",
-      "cover": "img/p/01-cover.webp",
+      "cover": "img/p/01.webp",
       "title": "UTP May 2026 Orientation Week",
       "subtitle": "PnE Session"
     },
     
     {
       "src": "img/p/02.webp",
-      "cover": "img/p/02-cover.webp",
+      "cover": "img/p/02.webp",
       "title": "UTP May 2026 Orientation Week",
       "subtitle": "PnE Session"
     },
     
     {
       "src": "img/p/03.webp",
-      "cover": "img/p/03-cover.webp",
+      "cover": "img/p/03.webp",
       "title": "UTP May 2026 Orientation Week",
       "subtitle": "PnE Session"
+    },
+
+    {
+      "src": "img/p/04.webp",
+      "cover": "img/p/04.webp",
+      "title": "UTP May 2026 Orientation Week",
+      "subtitle": "PnE Session"
+    },
+
+    {
+      "src": "img/p/05.webp",
+      "cover": "img/p/05.webp",
+      "title": "UTP May 2026 Orientation Week",
+      "subtitle": "Peer Session"
     }
 
+    {
+      "src": "img/p/06.webp",
+      "cover": "img/p/06.webp",
+      "title": "UTP May 2026 Orientation Week",
+      "subtitle": "Peer Session"
+    }
+
+    {
+      "src": "img/p/07.webp",
+      "cover": "img/p/07.webp",
+      "title": "UTP May 2026 Orientation Week",
+      "subtitle": "Peer Session"
+    },
     
   ],
 
