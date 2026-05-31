@@ -5,12 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>PORTFOLIO | MA ZHICHENG</title>
 
-    <link rel="shortcut icon" href="img/favicon/favicon.png" type="image/x-icon">
-    <link rel="icon" href="img/favicon/favicon.png" type="image/x-icon">
-    <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -34,6 +28,11 @@
             --uppercase-font-weight: 600;
             --navbar-height: 72px;
             --radius: 12px;
+            --card-width: 220px;
+            --card-height: 220px;
+            --card-gap: 16px;
+            --mobile-card-width: 160px;
+            --mobile-card-height: 160px;
         }
 
         html {
@@ -272,21 +271,19 @@
         .carousel-container {
             width: 100%;
             overflow: hidden;
-            border-radius: 0;
+            position: relative;
             background: transparent;
             border: none;
-            position: relative;
         }
         .carousel-track {
             display: flex;
             gap: 1rem;
             width: max-content;
-            padding: 1rem;
-            position: relative;
+            flex-wrap: nowrap;
         }
         .portfolio-card {
-            width: 220px;
-            height: 220px;
+            width: var(--card-width);
+            height: var(--card-height);
             flex-shrink: 0;
             border-radius: 12px;
             overflow: hidden;
@@ -309,7 +306,6 @@
             pointer-events: none;
         }
 
-        /* 视频卡片样式 */
         .video-card::before {
             content: '\f03d';
             font-family: 'Font Awesome 6 Free';
@@ -327,58 +323,44 @@
         .modal {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(0, 0, 0, 0.9);
             display: none;
             align-items: center;
             justify-content: center;
             z-index: 1000;
-            padding: 2rem;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            padding: 20px;
         }
         .modal.active {
             display: flex;
-            opacity: 1;
         }
         .modal-content {
-            max-width: 80%;
-            max-height: 80vh;
-            text-align: center;
-            background: var(--glass);
-            padding: 16px;
-            border-radius: 0;
-            border: 1px solid var(--border);
-            transform: scale(0.95);
-            transition: transform 0.3s ease;
-        }
-        .modal.active .modal-content {
-            transform: scale(1);
+            background: #111;
+            padding: 12px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            height: 73vh;
+            max-width: 100vw;
+            width: fit-content;
         }
         .modal-media {
+            display: block;
+            max-height: calc(70vh - 60px);
             max-width: 100%;
-            max-height: 70vh;
-            min-height: 300px;
-            border-radius: 0;
-            border: 1px solid var(--border);
-            margin-bottom: 1rem;
-            object-fit: cover;
-            aspect-ratio: 16/9;
+            width: auto;
+            height: auto;
+            object-fit: contain;
         }
         .modal-title {
             font-size: 14px;
-            font-weight: var(--uppercase-font-weight);
             color: #fff;
-            text-transform: uppercase;
-            letter-spacing: var(--uppercase-letter-spacing);
         }
         .modal-subtitle {
             font-size: 12px;
-            color: var(--text-muted);
-            margin-top: 4px;
-            text-transform: uppercase;
-            letter-spacing: var(--uppercase-letter-spacing);
+            color: #999;
         }
 
         footer {
@@ -393,16 +375,12 @@
         @media (max-width: 768px) {
             .profile { flex-direction: column; text-align: center; }
             .contacts { justify-content: center; }
-            .portfolio-card { width: 160px; height: 160px; }
-            .modal-content { max-width: 95%; }
-            .modal-media { 
-                max-height: 60vh;
-                min-height: 200px;
-                aspect-ratio: 4/3;
+            .portfolio-card { 
+                width: var(--mobile-card-width);
+                height: var(--mobile-card-height);
             }
-            :root {
-                --navbar-height: 68px;
-            }
+            .modal-content { height: 60vh; }
+            .modal-media { max-height: calc(60vh - 60px); }
         }
     </style>
 </head>
@@ -469,21 +447,21 @@
 
             <div class="category">
                 <h3>DESIGN</h3>
-                <div class="carousel-container" id="designCarousel">
+                <div class="carousel-container">
                     <div class="carousel-track" id="designTrack"></div>
                 </div>
             </div>
 
             <div class="category">
                 <h3>PHOTO</h3>
-                <div class="carousel-container" id="photoCarousel">
+                <div class="carousel-container">
                     <div class="carousel-track" id="photoTrack"></div>
                 </div>
             </div>
 
             <div class="category">
                 <h3>VIDEO</h3>
-                <div class="carousel-container" id="videoCarousel">
+                <div class="carousel-container">
                     <div class="carousel-track" id="videoTrack"></div>
                 </div>
             </div>
@@ -494,234 +472,138 @@
 
     <div class="modal" id="modal">
         <div class="modal-content">
-            <div id="modalMediaContainer"></div>
+            <img id="modalImg" class="modal-media">
+            <video id="modalVideo" class="modal-media" controls style="display:none;"></video>
             <div class="modal-title" id="modalTitle"></div>
             <div class="modal-subtitle" id="modalSubtitle"></div>
         </div>
     </div>
 
     <script>
-        // 导航点击事件
+        const ROOT_URL = '';
+
         document.querySelectorAll('a[href^="#"]').forEach(link => {
             link.addEventListener('click', e => {
                 const href = link.getAttribute('href');
-                if (href.length <= 1) return;
                 const target = document.querySelector(href);
                 if (!target) return;
-
                 e.preventDefault();
                 const navHeight = document.querySelector('.navbar').offsetHeight;
-                let offsetTop = target.offsetTop - navHeight - 20;
-
-                if (href === '#profile') {
-                    offsetTop -= 20;
-                }
-
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
-                history.pushState(null, null, href);
+                window.scrollTo({ top: target.offsetTop - navHeight - 20, behavior: 'smooth' });
             });
         });
 
-        // 模态框相关
         const modal = document.getElementById('modal');
-        const modalMediaContainer = document.getElementById('modalMediaContainer');
+        const modalImg = document.getElementById('modalImg');
+        const modalVideo = document.getElementById('modalVideo');
         const modalTitle = document.getElementById('modalTitle');
         const modalSubtitle = document.getElementById('modalSubtitle');
 
-        // 关闭模态框
-        modal.addEventListener('click', e => {
-            if (e.target === modal) {
-                modal.classList.remove('active');
-                setTimeout(() => {
-                    document.body.style.overflow = 'auto';
-                    // 清空媒体容器，避免视频继续播放
-                    modalMediaContainer.innerHTML = '';
-                }, 300);
+        modal.onclick = () => {
+            modal.classList.remove('active');
+            modalVideo.pause();
+        };
+        document.querySelector('.modal-content').onclick = (e) => e.stopPropagation();
+
+        function openModal(data) {
+            modalTitle.textContent = data.title;
+            modalSubtitle.textContent = data.subtitle;
+
+            if (data.src.endsWith('.mp4')) {
+                modalVideo.src = data.src;
+                modalVideo.style.display = 'block';
+                modalImg.style.display = 'none';
+            } else {
+                modalImg.src = data.src;
+                modalImg.style.display = 'block';
+                modalVideo.style.display = 'none';
             }
-        });
+            modal.classList.add('active');
+        }
 
-        document.querySelector('.modal-content').addEventListener('click', e => {
-            e.stopPropagation();
-        });
-
-        // 加载表格数据
         async function loadTableData() {
             try {
-                // 加载机构经历
-                const institutionalRes = await fetch('data/institutional.json');
-                const institutionalData = await institutionalRes.json();
-                const institutionalTbody = document.querySelector('#institutionalTable tbody');
-                institutionalData.forEach(item => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td>${item.tenure}</td>
-                        <td>${item.institution}</td>
-                        <td>${item.capacity}</td>
-                    `;
-                    institutionalTbody.appendChild(tr);
+                const institutional = await (await fetch(`${ROOT_URL}data/institutional.json`)).json();
+                const events = await (await fetch(`${ROOT_URL}data/events.json`)).json();
+                institutional.forEach(i => {
+                    document.querySelector('#institutionalTable tbody').innerHTML +=
+                        `<tr><td>${i.tenure}</td><td>${i.institution}</td><td>${i.capacity}</td></tr>`;
                 });
-
-                // 加载活动经历
-                const eventsRes = await fetch('data/events.json');
-                const eventsData = await eventsRes.json();
-                const eventsTbody = document.querySelector('#eventsTable tbody');
-                eventsData.forEach(item => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td>${item.date}</td>
-                        <td>${item.event}</td>
-                        <td>${item.department}</td>
-                        <td>${item.position}</td>
-                    `;
-                    eventsTbody.appendChild(tr);
+                events.forEach(i => {
+                    document.querySelector('#eventsTable tbody').innerHTML +=
+                        `<tr><td>${i.date}</td><td>${i.event}</td><td>${i.department}</td><td>${i.position}</td></tr>`;
                 });
-            } catch (error) {
-                console.error('加载表格数据失败:', error);
-            }
+            } catch (e) {}
         }
 
-        // 加载作品集数据
-        async function loadPortfolioData() {
-            try {
-                const res = await fetch('data/portfolio.json');
-                const portfolioData = await res.json();
-                
-                // 渲染设计作品集
-                renderPortfolioCategory('designTrack', portfolioData.design, 'image');
-                // 渲染摄影作品集
-                renderPortfolioCategory('photoTrack', portfolioData.photo, 'image');
-                // 渲染视频作品集
-                renderPortfolioCategory('videoTrack', portfolioData.video, 'video');
+        async function loadPortfolio() {
+            const data = await (await fetch(`${ROOT_URL}data/portfolio.json`)).json();
+            render('designTrack', data.design, 'img');
+            render('photoTrack', data.photo, 'img');
+            render('videoTrack', data.video, 'video');
 
-                // 初始化轮播
-                createSeamlessCarousel('designTrack', 0);
-                createSeamlessCarousel('photoTrack', 1);
-                createSeamlessCarousel('videoTrack', 2);
-
-            } catch (error) {
-                console.error('加载作品集数据失败:', error);
-            }
+            startCarousel('designTrack', 0);
+            startCarousel('photoTrack', getHalfCardWidth());
+            startCarousel('videoTrack', getHalfCardWidth() * 2);
         }
 
-        // 渲染作品集分类
-        function renderPortfolioCategory(trackId, items, type) {
+        function render(trackId, items, type) {
             const track = document.getElementById(trackId);
-            if (!track || !items) return;
-
             items.forEach(item => {
                 const card = document.createElement('div');
                 card.className = `portfolio-card ${type === 'video' ? 'video-card' : ''}`;
-                card.dataset.src = item.src;
-                card.dataset.title = item.title;
-                card.dataset.subtitle = item.subtitle;
-                card.dataset.type = type;
-
-                // 根据类型添加内容
-                if (type === 'image') {
-                    card.innerHTML = `<img src="${item.cover}" alt="${item.title}">`;
-                } else if (type === 'video') {
-                    card.innerHTML = `<img src="${item.cover}" alt="${item.title}">`;
-                }
-
-                // 卡片点击事件
-                card.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    openModal(item);
+                card.innerHTML = `<img src="${ROOT_URL}${item.cover}">`;
+                card.onclick = () => openModal({
+                    src: `${ROOT_URL}${item.src}`,
+                    title: item.title,
+                    subtitle: item.subtitle
                 });
-
                 track.appendChild(card);
             });
         }
 
-        // 打开模态框
-        function openModal(item) {
-            modalTitle.textContent = item.title;
-            modalSubtitle.textContent = item.subtitle;
-            modalMediaContainer.innerHTML = '';
-
-            if (item.src.endsWith('.mp4')) {
-                // 视频
-                const video = document.createElement('video');
-                video.className = 'modal-media';
-                video.src = item.src;
-                video.controls = true;
-                video.autoplay = true;
-                video.playsInline = true;
-                modalMediaContainer.appendChild(video);
-            } else {
-                // 图片
-                const img = document.createElement('img');
-                img.className = 'modal-media';
-                img.src = item.src;
-                img.alt = item.title;
-                modalMediaContainer.appendChild(img);
-            }
-
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
+        function getHalfCardWidth() {
+            const isMobile = window.innerWidth <= 768;
+            const cardWidth = isMobile 
+                ? parseInt(getComputedStyle(document.documentElement).getPropertyValue('--mobile-card-width'))
+                : parseInt(getComputedStyle(document.documentElement).getPropertyValue('--card-width'));
+            const cardGap = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--card-gap'));
+            return (cardWidth + cardGap) / 2;
         }
 
-        // 无缝轮播函数
-        function createSeamlessCarousel(trackId, stagger = 0) {
+        function startCarousel(trackId, initialOffset = 0) {
             const track = document.getElementById(trackId);
-            if (!track) return;
-            
-            const originalCards = Array.from(track.children);
-            const cardCount = originalCards.length;
-            if (cardCount === 0) return;
+            const items = Array.from(track.children);
+            const totalWidth = items.reduce((w, el) => w + el.offsetWidth + 16, 0);
 
-            // 克隆卡片
-            const clones = originalCards.map(el => {
-                const clone = el.cloneNode(true);
-                clone.dataset = el.dataset;
-                clone.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    openModal({
-                        src: clone.dataset.src,
-                        title: clone.dataset.title,
-                        subtitle: clone.dataset.subtitle
-                    });
+            for (let i = 0; i < 3; i++) {
+                items.forEach(item => {
+                    const clone = item.cloneNode(true);
+                    clone.onclick = item.onclick;
+                    track.appendChild(clone);
                 });
-                return clone;
-            });
-            
-            clones.forEach(el => track.appendChild(el));
-
-            let cardWidth = originalCards[0].offsetWidth + 16;
-            let pos = stagger * cardWidth / 2;
-            const speed = 1.2;
-
-            track.style.transform = `translateX(-${pos}px)`;
-            track.style.transition = 'transform 0s';
-
-            function animate() {
-                pos += speed;
-                
-                if (pos >= cardWidth * cardCount) {
-                    pos = 0; // 重置位置
-                }
-                track.style.transform = `translateX(-${pos}px)`;
-                
-                requestAnimationFrame(animate);
             }
 
-            animate();
-
-            // 窗口大小变化时更新卡片宽度
-            window.addEventListener('resize', () => {
-                const newCardWidth = originalCards[0].offsetWidth + 16;
-                pos = (pos / cardWidth) * newCardWidth;
-                cardWidth = newCardWidth;
-            });
+            let x = -initialOffset;
+            const speed = 1.2;
+            (function animate() {
+                x -= speed;
+                if (Math.abs(x) >= totalWidth) x = -initialOffset;
+                track.style.transform = `translateX(${x}px)`;
+                requestAnimationFrame(animate);
+            })();
         }
 
-        // 初始化
         window.addEventListener('DOMContentLoaded', async () => {
             await loadTableData();
-            await loadPortfolioData();
+            await loadPortfolio();
+        });
+
+        window.addEventListener('resize', () => {
+            ['designTrack', 'photoTrack', 'videoTrack'].forEach((trackId, index) => {
+                const track = document.getElementById(trackId);
+                track.style.transform = `translateX(${-index * getHalfCardWidth()}px)`;
+            });
         });
     </script>
 </body>
