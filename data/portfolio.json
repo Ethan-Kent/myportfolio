@@ -1,56 +1,82 @@
 {
+
+  
   "design": [
+
+    
     {
-      "src": "img/D/01.webp",
-      "cover": "img/D/01-cover.webp",
+      "src": "img/d/01.webp",
+      "cover": "img/d/01-cover.webp",
       "title": "UTP May 2026 Orientation Week",
       "subtitle": "Logo"
     },
+    
     {
-      "src": "img/D/02.webp",
+      "src": "img/d/02.webp",
       "cover": "img/D/02-cover.webp",
       "title": "UTP May 2026 Orientation Week",
       "subtitle": "Nametag & Lanyard"
     },
+    
     {
-      "src": "img/D/03.webp",
-      "cover": "img/D/03-cover.webp",
+      "src": "img/d/03.webp",
+      "cover": "img/d/03-cover.webp",
       "title": "UTP Chinese New Year 2026: Horsepower",
       "subtitle": "Committee T-shirt"
     }
+
+    
   ],
+
+
+  
   "photo": [
+
+    
     {
-      "src": "img/P/01.webp",
-      "cover": "img/P/01-cover.webp",
+      "src": "img/p/01.webp",
+      "cover": "img/p/01-cover.webp",
       "title": "UTP May 2026 Orientation Week",
       "subtitle": "PnE Session"
     },
+    
     {
-      "src": "img/P/02.webp",
-      "cover": "img/P/02-cover.webp",
+      "src": "img/p/02.webp",
+      "cover": "img/p/02-cover.webp",
       "title": "UTP May 2026 Orientation Week",
       "subtitle": "PnE Session"
     },
+    
     {
-      "src": "img/P/03.webp",
-      "cover": "img/P/03-cover.webp",
+      "src": "img/p/03.webp",
+      "cover": "img/p/03-cover.webp",
       "title": "UTP May 2026 Orientation Week",
       "subtitle": "PnE Session"
     }
+
+    
   ],
+
+  
+  
   "video": [
+    
     {
       "src": "vid/1.mp4",
-      "cover": "img/V/1-cover.webp",
+      "cover": "img/v/1-cover.webp",
       "title": "MOTION GRAPHICS",
       "subtitle": "Dynamic Visuals"
     },
+    
     {
       "src": "vid/2.mp4",
-      "cover": "img/V/2-cover.webp",
+      "cover": "img/v/2-cover.webp",
       "title": "COMMERCIAL",
       "subtitle": "Brand Storytelling"
     }
+    
   ]
+
+
+  
 }
