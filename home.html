@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>PORTFOLIO | MA ZHICHENG</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0b0b0d;
+            --glass: rgba(255,255,255,0.06);
+            --glass-strong: rgba(255,255,255,0.08);
+            --border: rgba(255,255,255,0.12);
+            --text: #f0f0f0;
+            --text-muted: #a0a0a0;
+            --accent: #ff3333;
+            --blur: 16px;
+            --shadow: 0 8px 30px rgba(0,0,0,0.25);
+            --uppercase-font-size: 12px;
+            --uppercase-letter-spacing: 1px;
+            --uppercase-font-weight: 600;
+            --navbar-height: 72px;
+            --radius: 12px;
+            --card-width: 220px;
+            --card-height: 220px;
+            --card-gap: 16px;
+            --mobile-card-width: 160px;
+            --mobile-card-height: 160px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: var(--navbar-height);
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        body.loaded {
+            opacity: 1;
+        }
+
+        #profile, #institutional, #events, #portfolio {
+            scroll-margin-top: calc(var(--navbar-height));
+        }
+
+        .bg-animated {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at center, #2a0000 0%, #100000 15%, #0b0b0d 80%, #0b0b0d 100%);
+            background-size: 230% 230%;
+            animation: bgFlow 30s ease infinite;
+            z-index: -2;
+        }
+
+        @keyframes bgFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .glow-top {
+            position: fixed;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 700px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,50,50,0.2) 0%, transparent 60%);
+            opacity: 0.5;
+            z-index: -1;
+        }
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,50,50,0.3);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            z-index: 999;
+            padding: 18px 0;
+            height: var(--navbar-height);
+            box-sizing: border-box;
+        }
+        
+        .nav-container {
+            width: min(1200px, calc(100% - 32px));
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+        
+        .nav-logo {
+            font-weight: var(--uppercase-font-weight);
+            letter-spacing: var(--uppercase-letter-spacing);
+            text-transform: uppercase;
+            font-size: var(--uppercase-font-size);
+        }
+        
+        .nav-logo span {
+            color: var(--accent);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 28px;
+        }
+        
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: var(--uppercase-font-size);
+            font-weight: var(--uppercase-font-weight);
+            text-transform: uppercase;
+            transition: color 0.3s;
+            letter-spacing: var(--uppercase-letter-spacing);
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* 移动端汉堡菜单 */
+        .mobile-menu-btn {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            color: var(--text);
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 280px;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-left: 1px solid var(--border);
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            padding: 80px 20px 20px;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        .mobile-menu a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: var(--uppercase-font-weight);
+            text-transform: uppercase;
+            padding: 15px 10px;
+            border-bottom: 1px solid var(--border);
+            transition: color 0.3s;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--accent);
+        }
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .overlay.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .container {
+            width: min(1200px, calc(100% - 32px));
+            margin: 40px auto;
+        }
+
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(var(--blur));
+            -webkit-backdrop-filter: blur(var(--blur));
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            box-shadow: var(--shadow);
+            margin-bottom: 32px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        /* 依次延迟显示卡片 */
+        #profile.glass-card { animation-delay: 0.2s; }
+        #institutional.glass-card { animation-delay: 0.4s; }
+        #events.glass-card { animation-delay: 0.6s; }
+        #portfolio.glass-card { animation-delay: 0.8s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .profile {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .avatar {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--border);
+            background: #111;
+        }
+        
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .info h1 {
+            font-size: 24px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: var(--uppercase-letter-spacing);
+            font-weight: var(--uppercase-font-weight);
+        }
+        
+        .info h1 span {
+            color: var(--accent);
+        }
+        
+        .info .tag {
+            color: var(--accent);
+            font-weight: var(--uppercase-font-weight);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            font-size: var(--uppercase-font-size);
+            letter-spacing: var(--uppercase-letter-spacing);
+        }
+        
+        .info p {
+            color: var(--text-muted);
+            max-width: 600px;
+            line-height: 1.7;
+        }
+
+        .contacts {
+            margin-top: 16px;
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        
+        .contacts a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: var(--uppercase-font-size);
+            text-transform: uppercase;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            transition: all .3s;
+            letter-spacing: var(--uppercase-letter-spacing);
+        }
+        
+        .contacts a:hover {
+            background: var(--glass-strong);
+            color: var(--accent);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: var(--uppercase-font-weight);
+            margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: var(--uppercase-letter-spacing);
+        }
+        
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th {
+            text-align: left;
+            padding: 12px 16px;
+            font-size: var(--uppercase-font-size);
+            text-transform: uppercase;
+            letter-spacing: var(--uppercase-letter-spacing);
+            color: var(--accent);
+            font-weight: var(--uppercase-font-weight);
+        }
+        
+        td {
+            padding: 14px 16px;
+            border-top: 1px solid var(--border);
+            font-size: 14px;
+        }
+        
+        tr:hover td {
+            background: var(--glass);
+        }
+
+        .category {
+            margin-bottom: 40px;
+        }
+        
+        .category h3 {
+            font-size: var(--uppercase-font-size);
+            margin-bottom: 16px;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: var(--uppercase-letter-spacing);
+            font-weight: var(--uppercase-font-weight);
+        }
+
+        .carousel-container {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            background: transparent;
+            border: none;
+        }
+        
+        .carousel-track {
+            display: flex;
+            gap: 1rem;
+            width: max-content;
+            flex-wrap: nowrap;
+        }
+        
+        .portfolio-card {
+            width: var(--card-width);
+            height: var(--card-height);
+            flex-shrink: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #111;
+            border: 1px solid var(--border);
+            transition: transform .3s, box-shadow .3s;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .portfolio-card:nth-child(odd) { animation-delay: 0.2s; }
+        .portfolio-card:nth-child(even) { animation-delay: 0.4s; }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        
+        .portfolio-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        
+        .portfolio-card img,
+        .portfolio-card video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            pointer-events: none;
+        }
+
+        .video-card::before {
+            content: '\f03d';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 40px;
+            color: rgba(255,255,255,0.8);
+            text-shadow: 0 0 10px rgba(0,0,0,0.5);
+            z-index: 2;
+        }
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .modal-content {
+            background: #111;
+            padding: 12px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            height: 73vh;
+            max-width: 100vw;
+            width: fit-content;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+        
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+        
+        .modal-media {
+            display: block;
+            max-height: calc(70vh - 60px);
+            max-width: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+        }
+        
+        .modal-title {
+            font-size: 14px;
+            color: #fff;
+        }
+        
+        .modal-subtitle {
+            font-size: 12px;
+            color: #999;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            font-size: var(--uppercase-font-size);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: var(--uppercase-letter-spacing);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards 1s;
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .profile { 
+                flex-direction: column; 
+                text-align: center; 
+            }
+            
+            .contacts { 
+                justify-content: center; 
+            }
+            
+            .portfolio-card { 
+                width: var(--mobile-card-width);
+                height: var(--mobile-card-height);
+            }
+            
+            .modal-content { 
+                height: 60vh; 
+                width: 95%;
+            }
+            
+            .modal-media { 
+                max-height: calc(60vh - 60px); 
+            }
+
+            /* 移动端固定宽度优化 */
+            .container {
+                width: 100%;
+                padding: 0 16px;
+                margin: 20px auto;
+            }
+
+            .glass-card {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+        }
+
+        /* 加载中样式 */
+        .loader {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 1s ease infinite;
+            z-index: 9999;
+        }
+
+        @keyframes spin {
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .loader.hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 加载指示器 -->
+    <div class="loader" id="loader"></div>
+    
+    <div class="bg-animated"></div>
+    <div class="glow-top"></div>
+
+    <div class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo"><span>PORTFOLIO</span> | MA ZHICHENG </div>
+            <div class="nav-links">
+                <a href="#profile">ABOUT</a>
+                <a href="#institutional">INSTITUTIONAL</a>
+                <a href="#events">EVENTS</a>
+                <a href="#portfolio">PORTFOLIO</a>
+            </div>
+            <!-- 移动端汉堡按钮 -->
+            <div class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- 移动端菜单 -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#profile" class="mobile-nav-link">ABOUT</a>
+        <a href="#institutional" class="mobile-nav-link">INSTITUTIONAL</a>
+        <a href="#events" class="mobile-nav-link">EVENTS</a>
+        <a href="#portfolio" class="mobile-nav-link">PORTFOLIO</a>
+    </div>
+    
+    <!-- 遮罩层 -->
+    <div class="overlay" id="overlay"></div>
+
+    <div class="container">
+        <section id="profile" class="glass-card profile">
+            <div class="avatar">
+                <img src="img/avatar.webp" alt="Avatar" id="avatarImg">
+            </div>
+            <div class="info">
+                <h1>MA ZHICHENG</h1>
+                <div class="tag">Graphic Designer / Visual Artist</div>
+                <p>Focused on brand visuals and graphic design, skilled in logo and vector illustration, with a preference for corporate and flat aesthetics.</p>
+                <div class="contacts">
+                    <a href="mailto:ethankent2007@163.com"><i class="fas fa-envelope"></i> Email</a>
+                    <a href="https://wa.me/601151219855"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                    <a href="https://www.instagram.com/kennntkent"><i class="fab fa-instagram"></i> Instagram</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="institutional" class="glass-card">
+            <h2 class="section-title">Institutional Involvement</h2>
+            <div class="table-wrap">
+                <table id="institutionalTable">
+                    <thead>
+                        <tr><th>Tenure</th><th>Institution</th><th>Capacity</th></tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="events" class="glass-card">
+            <h2 class="section-title">Event Experience</h2>
+            <div class="table-wrap">
+                <table id="eventsTable">
+                    <thead>
+                        <tr><th>Date</th><th>Event</th><th>Department</th><th>Position</th></tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="portfolio" class="glass-card">
+            <h2 class="section-title">Portfolio</h2>
+
+            <div class="category">
+                <h3>DESIGN</h3>
+                <div class="carousel-container">
+                    <div class="carousel-track" id="designTrack"></div>
+                </div>
+            </div>
+
+            <div class="category">
+                <h3>PHOTO</h3>
+                <div class="carousel-container">
+                    <div class="carousel-track" id="photoTrack"></div>
+                </div>
+            </div>
+
+            <div class="category">
+                <h3>VIDEO</h3>
+                <div class="carousel-container">
+                    <div class="carousel-track" id="videoTrack"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>COPYRIGHT © 2025–2026 MA ZHICHENG. All rights reserved.</footer>
+
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <img id="modalImg" class="modal-media">
+            <video id="modalVideo" class="modal-media" controls style="display:none;"></video>
+            <div class="modal-title" id="modalTitle"></div>
+            <div class="modal-subtitle" id="modalSubtitle"></div>
+        </div>
+    </div>
+
+    <script>
+        // 强制页面回到顶部
+        window.scrollTo(0, 0);
+
+        const ROOT_URL = '';
+        const loader = document.getElementById('loader');
+        const modal = document.getElementById('modal');
+        const modalImg = document.getElementById('modalImg');
+        const modalVideo = document.getElementById('modalVideo');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalSubtitle = document.getElementById('modalSubtitle');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const overlay = document.getElementById('overlay');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        // 预加载资源列表
+        const preloadResources = [];
+
+        // 防抖函数
+        function debounce(func, wait) {
+            let timeout;
+            return function(...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), wait);
+            };
+        }
+
+        // 初始化移动端菜单
+        function initMobileMenu() {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('active');
+                overlay.classList.toggle('active');
+                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+            });
+
+            overlay.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('active');
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+        }
+
+        // 预加载图片
+        function preloadImage(src) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.src = src;
+                img.onload = resolve;
+                img.onerror = reject;
+            });
+        }
+
+        // 预加载所有资源
+        async function preloadAllResources() {
+            try {
+                // 预加载头像
+                const avatarImg = document.getElementById('avatarImg');
+                if (avatarImg) {
+                    await preloadImage(avatarImg.src);
+                }
+
+                // 加载portfolio数据并预加载封面
+                const portfolioData = await (await fetch(`${ROOT_URL}data/portfolio.json`)).json();
+                
+                // 收集所有需要预加载的资源
+                const allCovers = [
+                    ...portfolioData.design.map(item => `${ROOT_URL}${item.cover}`),
+                    ...portfolioData.photo.map(item => `${ROOT_URL}${item.cover}`),
+                    ...portfolioData.video.map(item => `${ROOT_URL}${item.cover}`)
+                ];
+
+                // 并行预加载所有封面
+                await Promise.all(allCovers.map(src => preloadImage(src)));
+                
+                return portfolioData;
+            } catch (error) {
+                console.error('预加载资源失败:', error);
+                return null;
+            }
+        }
+
+        // 初始化导航链接平滑滚动
+        function initSmoothScroll() {
+            document.querySelectorAll('a[href^="#"]').forEach(link => {
+                link.addEventListener('click', e => {
+                    const href = link.getAttribute('href');
+                    const target = document.querySelector(href);
+                    if (!target) return;
+                    
+                    e.preventDefault();
+                    const navHeight = document.querySelector('.navbar').offsetHeight;
+                    window.scrollTo({ 
+                        top: target.offsetTop - navHeight - 20, 
+                        behavior: 'smooth' 
+                    });
+                });
+            });
+        }
+
+        // 初始化模态框
+        function initModal() {
+            modal.onclick = () => {
+                modal.classList.remove('active');
+                modalVideo.pause();
+            };
+            
+            document.querySelector('.modal-content').onclick = (e) => e.stopPropagation();
+        }
+
+        function openModal(data) {
+            modalTitle.textContent = data.title;
+            modalSubtitle.textContent = data.subtitle;
+
+            if (data.src.endsWith('.mp4')) {
+                modalVideo.src = data.src;
+                modalVideo.style.display = 'block';
+                modalImg.style.display = 'none';
+            } else {
+                modalImg.src = data.src;
+                modalImg.style.display = 'block';
+                modalVideo.style.display = 'none';
+            }
+            
+            modal.classList.add('active');
+        }
+
+        async function loadTableData() {
+            try {
+                const [institutionalRes, eventsRes] = await Promise.all([
+                    fetch(`${ROOT_URL}data/institutional.json`),
+                    fetch(`${ROOT_URL}data/events.json`)
+                ]);
+
+                const institutional = await institutionalRes.json();
+                const events = await eventsRes.json();
+
+                let institutionalHtml = '';
+                institutional.forEach(i => {
+                    institutionalHtml += `<tr><td>${i.tenure}</td><td>${i.institution}</td><td>${i.capacity}</td></tr>`;
+                });
+                document.querySelector('#institutionalTable tbody').innerHTML = institutionalHtml;
+
+                let eventsHtml = '';
+                events.forEach(i => {
+                    eventsHtml += `<tr><td>${i.date}</td><td>${i.event}</td><td>${i.department}</td><td>${i.position}</td></tr>`;
+                });
+                document.querySelector('#eventsTable tbody').innerHTML = eventsHtml;
+
+            } catch (e) {
+                console.error('加载表格数据失败:', e);
+            }
+        }
+
+        function render(trackId, items, type) {
+            const track = document.getElementById(trackId);
+            let trackHtml = '';
+            
+            items.forEach(item => {
+                trackHtml += `
+                    <div class="portfolio-card ${type === 'video' ? 'video-card' : ''}" data-src="${ROOT_URL}${item.src}" 
+                         data-title="${item.title}" data-subtitle="${item.subtitle}">
+                        <img src="${ROOT_URL}${item.cover}" alt="${item.title}">
+                    </div>
+                `;
+            });
+            
+            track.innerHTML = trackHtml;
+
+            // 绑定点击事件
+            track.querySelectorAll('.portfolio-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    openModal({
+                        src: card.dataset.src,
+                        title: card.dataset.title,
+                        subtitle: card.dataset.subtitle
+                    });
+                });
+            });
+        }
+
+        function getHalfCardWidth() {
+            const isMobile = window.innerWidth <= 768;
+            const root = getComputedStyle(document.documentElement);
+            const cardWidth = isMobile 
+                ? parseInt(root.getPropertyValue('--mobile-card-width'))
+                : parseInt(root.getPropertyValue('--card-width'));
+            const cardGap = parseInt(root.getPropertyValue('--card-gap'));
+            
+            return (cardWidth + cardGap) / 2;
+        }
+
+        function startCarousel(trackId, initialOffset = 0) {
+            const track = document.getElementById(trackId);
+            const items = Array.from(track.children);
+            if (!items.length) return;
+
+            // 计算总宽度
+            const totalWidth = items.reduce((w, el) => w + el.offsetWidth + 16, 0);
+
+            // 克隆项目实现无限滚动
+            for (let i = 0; i < 3; i++) {
+                items.forEach(item => {
+                    const clone = item.cloneNode(true);
+                    clone.addEventListener('click', item.click.bind(item));
+                    track.appendChild(clone);
+                });
+            }
+
+            let x = -initialOffset;
+            const speed = 1.2;
+            
+            // 使用requestAnimationFrame优化动画
+            function animate() {
+                x -= speed;
+                if (Math.abs(x) >= totalWidth) x = -initialOffset;
+                track.style.transform = `translateX(${x}px)`;
+                requestId = requestAnimationFrame(animate);
+            }
+            
+            let requestId = requestAnimationFrame(animate);
+            
+            // 保存动画ID以便后续清理
+            track.dataset.animationId = requestId;
+        }
+
+        // 调整窗口大小处理函数（防抖）
+        const handleResize = debounce(() => {
+            ['designTrack', 'photoTrack', 'videoTrack'].forEach((trackId, index) => {
+                const track = document.getElementById(trackId);
+                // 清除原有动画
+                const oldId = track.dataset.animationId;
+                if (oldId) cancelAnimationFrame(oldId);
+                
+                // 重置位置并重新启动轮播
+                const offset = -index * getHalfCardWidth();
+                track.style.transform = `translateX(${offset}px)`;
+                startCarousel(trackId, Math.abs(offset));
+            });
+        }, 200);
+
+        // 初始化页面
+        async function initPage() {
+            try {
+                // 初始化基础功能
+                initMobileMenu();
+                initSmoothScroll();
+                initModal();
+
+                // 并行加载表格数据和预加载资源
+                const [portfolioData] = await Promise.all([
+                    preloadAllResources(),
+                    loadTableData()
+                ]);
+
+                if (portfolioData) {
+                    // 渲染作品集
+                    render('designTrack', portfolioData.design, 'img');
+                    render('photoTrack', portfolioData.photo, 'img');
+                    render('videoTrack', portfolioData.video, 'video');
+
+                    // 启动轮播
+                    startCarousel('designTrack', 0);
+                    startCarousel('photoTrack', getHalfCardWidth());
+                    startCarousel('videoTrack', getHalfCardWidth() * 2);
+                }
+
+                // 绑定窗口大小调整事件
+                window.addEventListener('resize', handleResize);
+
+            } catch (error) {
+                console.error('页面初始化失败:', error);
+            } finally {
+                // 隐藏加载指示器，显示页面
+                loader.classList.add('hidden');
+                document.body.classList.add('loaded');
+            }
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', initPage);
+
+        // 确保页面刷新时回到顶部
+        window.addEventListener('beforeunload', () => {
+            window.scrollTo(0, 0);
+        });
+
+        // 清理动画防止内存泄漏
+        window.addEventListener('unload', () => {
+            ['designTrack', 'photoTrack', 'videoTrack'].forEach(trackId => {
+                const track = document.getElementById(trackId);
+                const animationId = track.dataset.animationId;
+                if (animationId) cancelAnimationFrame(animationId);
+            });
+        });
+    </script>
+</body>
+</html>
