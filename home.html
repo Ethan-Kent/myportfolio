@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>PORTFOLIO | MA ZHICHENG</title>
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -141,7 +140,6 @@
             color: var(--accent);
         }
 
-        /* 移动端汉堡菜单 */
         .mobile-menu-btn {
             display: none;
             align-items: center;
@@ -227,7 +225,6 @@
             animation: fadeInUp 0.8s ease forwards;
         }
 
-        /* 依次延迟显示卡片 */
         #profile.glass-card { animation-delay: 0.2s; }
         #institutional.glass-card { animation-delay: 0.4s; }
         #events.glass-card { animation-delay: 0.6s; }
@@ -510,7 +507,6 @@
             animation: fadeInUp 0.8s ease forwards 1s;
         }
 
-        /* 移动端适配 */
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
@@ -543,7 +539,6 @@
                 max-height: calc(60vh - 60px); 
             }
 
-            /* 移动端固定宽度优化 */
             .container {
                 width: 100%;
                 padding: 0 16px;
@@ -556,7 +551,6 @@
             }
         }
 
-        /* 加载中样式 */
         .loader {
             position: fixed;
             top: 50%;
@@ -582,7 +576,6 @@
 </head>
 
 <body>
-    <!-- 加载指示器 -->
     <div class="loader" id="loader"></div>
     
     <div class="bg-animated"></div>
@@ -597,14 +590,12 @@
                 <a href="#events">EVENTS</a>
                 <a href="#portfolio">PORTFOLIO</a>
             </div>
-            <!-- 移动端汉堡按钮 -->
             <div class="mobile-menu-btn" id="mobileMenuBtn">
                 <i class="fas fa-bars"></i>
             </div>
         </div>
     </div>
 
-    <!-- 移动端菜单 -->
     <div class="mobile-menu" id="mobileMenu">
         <a href="#profile" class="mobile-nav-link">ABOUT</a>
         <a href="#institutional" class="mobile-nav-link">INSTITUTIONAL</a>
@@ -612,7 +603,6 @@
         <a href="#portfolio" class="mobile-nav-link">PORTFOLIO</a>
     </div>
     
-    <!-- 遮罩层 -->
     <div class="overlay" id="overlay"></div>
 
     <div class="container">
@@ -694,7 +684,6 @@
     </div>
 
     <script>
-        // 强制页面回到顶部
         window.scrollTo(0, 0);
 
         const ROOT_URL = '';
@@ -709,10 +698,6 @@
         const overlay = document.getElementById('overlay');
         const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
 
-        // 预加载资源列表
-        const preloadResources = [];
-
-        // 防抖函数
         function debounce(func, wait) {
             let timeout;
             return function(...args) {
@@ -721,7 +706,6 @@
             };
         }
 
-        // 初始化移动端菜单
         function initMobileMenu() {
             mobileMenuBtn.addEventListener('click', () => {
                 mobileMenu.classList.toggle('active');
@@ -744,46 +728,6 @@
             });
         }
 
-        // 预加载图片
-        function preloadImage(src) {
-            return new Promise((resolve, reject) => {
-                const img = new Image();
-                img.src = src;
-                img.onload = resolve;
-                img.onerror = reject;
-            });
-        }
-
-        // 预加载所有资源
-        async function preloadAllResources() {
-            try {
-                // 预加载头像
-                const avatarImg = document.getElementById('avatarImg');
-                if (avatarImg) {
-                    await preloadImage(avatarImg.src);
-                }
-
-                // 加载portfolio数据并预加载封面
-                const portfolioData = await (await fetch(`${ROOT_URL}data/portfolio.json`)).json();
-                
-                // 收集所有需要预加载的资源
-                const allCovers = [
-                    ...portfolioData.design.map(item => `${ROOT_URL}${item.cover}`),
-                    ...portfolioData.photo.map(item => `${ROOT_URL}${item.cover}`),
-                    ...portfolioData.video.map(item => `${ROOT_URL}${item.cover}`)
-                ];
-
-                // 并行预加载所有封面
-                await Promise.all(allCovers.map(src => preloadImage(src)));
-                
-                return portfolioData;
-            } catch (error) {
-                console.error('预加载资源失败:', error);
-                return null;
-            }
-        }
-
-        // 初始化导航链接平滑滚动
         function initSmoothScroll() {
             document.querySelectorAll('a[href^="#"]').forEach(link => {
                 link.addEventListener('click', e => {
@@ -801,7 +745,6 @@
             });
         }
 
-        // 初始化模态框
         function initModal() {
             modal.onclick = () => {
                 modal.classList.remove('active');
@@ -870,7 +813,6 @@
             
             track.innerHTML = trackHtml;
 
-            // 绑定点击事件
             track.querySelectorAll('.portfolio-card').forEach(card => {
                 card.addEventListener('click', () => {
                     openModal({
@@ -898,10 +840,8 @@
             const items = Array.from(track.children);
             if (!items.length) return;
 
-            // 计算总宽度
             const totalWidth = items.reduce((w, el) => w + el.offsetWidth + 16, 0);
 
-            // 克隆项目实现无限滚动
             for (let i = 0; i < 3; i++) {
                 items.forEach(item => {
                     const clone = item.cloneNode(true);
@@ -913,7 +853,6 @@
             let x = -initialOffset;
             const speed = 1.2;
             
-            // 使用requestAnimationFrame优化动画
             function animate() {
                 x -= speed;
                 if (Math.abs(x) >= totalWidth) x = -initialOffset;
@@ -922,73 +861,55 @@
             }
             
             let requestId = requestAnimationFrame(animate);
-            
-            // 保存动画ID以便后续清理
             track.dataset.animationId = requestId;
         }
 
-        // 调整窗口大小处理函数（防抖）
         const handleResize = debounce(() => {
             ['designTrack', 'photoTrack', 'videoTrack'].forEach((trackId, index) => {
                 const track = document.getElementById(trackId);
-                // 清除原有动画
                 const oldId = track.dataset.animationId;
                 if (oldId) cancelAnimationFrame(oldId);
                 
-                // 重置位置并重新启动轮播
                 const offset = -index * getHalfCardWidth();
                 track.style.transform = `translateX(${offset}px)`;
                 startCarousel(trackId, Math.abs(offset));
             });
         }, 200);
 
-        // 初始化页面
         async function initPage() {
             try {
-                // 初始化基础功能
                 initMobileMenu();
                 initSmoothScroll();
                 initModal();
+                await loadTableData();
 
-                // 并行加载表格数据和预加载资源
-                const [portfolioData] = await Promise.all([
-                    preloadAllResources(),
-                    loadTableData()
-                ]);
+                const portfolioRes = await fetch(`${ROOT_URL}data/portfolio.json`);
+                const portfolioData = await portfolioRes.json();
 
-                if (portfolioData) {
-                    // 渲染作品集
-                    render('designTrack', portfolioData.design, 'img');
-                    render('photoTrack', portfolioData.photo, 'img');
-                    render('videoTrack', portfolioData.video, 'video');
+                render('designTrack', portfolioData.design, 'img');
+                render('photoTrack', portfolioData.photo, 'img');
+                render('videoTrack', portfolioData.video, 'video');
 
-                    // 启动轮播
-                    startCarousel('designTrack', 0);
-                    startCarousel('photoTrack', getHalfCardWidth());
-                    startCarousel('videoTrack', getHalfCardWidth() * 2);
-                }
+                startCarousel('designTrack', 0);
+                startCarousel('photoTrack', getHalfCardWidth());
+                startCarousel('videoTrack', getHalfCardWidth() * 2);
 
-                // 绑定窗口大小调整事件
                 window.addEventListener('resize', handleResize);
 
             } catch (error) {
                 console.error('页面初始化失败:', error);
             } finally {
-                // 隐藏加载指示器，显示页面
                 loader.classList.add('hidden');
                 document.body.classList.add('loaded');
             }
         }
 
-        // 页面加载完成后初始化
         document.addEventListener('DOMContentLoaded', initPage);
 
-        // 确保页面刷新时回到顶部
         window.addEventListener('beforeunload', () => {
             window.scrollTo(0, 0);
         });
 
-        // 清理动画防止内存泄漏
         window.addEventListener('unload', () => {
             ['designTrack', 'photoTrack', 'videoTrack'].forEach(trackId => {
                 const track = document.getElementById(trackId);
